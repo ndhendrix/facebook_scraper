@@ -58,5 +58,10 @@ combined <- rbind(posts, comments)
 # sorts by post id
 combined <- combined[order(combined$id),]
 
+# deidentifies post ID and user ID
+combined$from_id <- as.character(as.factor(combined$from_id))
+combined$id <- as.character(as.factor(combined$id))
+combined$from_name <- NULL
+
 # writes sorted posts and comments to csv
 write.csv(combined, "fb_scrape.csv", row.names = FALSE)
