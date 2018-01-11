@@ -5,26 +5,26 @@ if (!require(Rfacebook)) install.packages('Rfacebook')
 if (!require(Rook)) install.packages('Rook')
 if (!require(dplyr)) install.packages('dplyr')
 
-library(Rfacebook)
-library(Rook)
-library(dplyr)
+require(Rfacebook)
+require(Rook)
+require(dplyr)
 
 # Set working directory
-setwd("*** Your working directory here ***")
+setwd("** your wd here **")
 
 # Get a temporary user token from https://developers.facebook.com/tools/explorer/
 # Make sure to select user_managed_groups when requesting your token
 # This token will only last ~ 2 hours before you need to request a new one
-token <- "*** Your token here ***"
+token <- "** your token here **"
 
 # Request the first 2000 posts and comments of group page :
 # Note, you can only scrape a group page if it is a public group or if you are an admin
-page <- getPage("*** Your group ID here ***",      # change to the group ID 
+page <- getPage("** your group id here **",      # change to the group ID 
                 token,
-                n = 2000,              # change this if you need more than 20k
+                n = 2000,              # change this if you need more than 2k
                 feed = TRUE,
-                since = "2015-11-12",   # year / month / date 
-                until = "2017-11-12")   # if you want up to date, set this to one day in the future because it's GST
+                since = "2018-01-11",   # year - month - date
+                until = "2018-01-12")   # if you want up to date, set this to one day in the future because it's GST
 
 # Select items of interest
 #
@@ -52,6 +52,7 @@ for(i in 1:nrow(posts)){
 # combines posts and comments
 comments$is_comment <- TRUE
 posts$is_comment <- FALSE
+comments$comments_count <- NULL
 combined <- rbind(posts, comments)
 
 # sorts by post id
